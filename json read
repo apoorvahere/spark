@@ -1,0 +1,6 @@
+from pyspark.sql.functions import *
+rawDF = spark.read.json("hdfs://127.0.0.1:9000/input.json", multiLine = "true")
+rawDF.printSchema()
+
+rawDF = spark.read.json("hdfs://127.0.0.1:9000/ipl/ipl_json/1082592.json", multiLine = "true")
+rawDF.show()

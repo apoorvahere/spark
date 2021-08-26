@@ -1,0 +1,2 @@
+hadoop fs -put '/home/pooja/Desktop/ipl_json/' /ipl/
+
