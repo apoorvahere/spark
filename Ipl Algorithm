@@ -1,0 +1,21 @@
+-- Step 1 : Import libaries
+from pyspark.sql.functions import *
+
+--Step 2 :Loading Json
+JsonDF = spark.read.json("Json File Path", multiLine = "true")
+
+---Step 3 : Convert Json data to Datareader
+TempDF = (JsonDF
+        .select("over", explode("deliveries").alias("new_deliveries"))
+        .select("over", "new_deliveries.*")
+        .withColumnRenamed("batter", "BatsManName")
+        .withColumnRenamed("bowler", "BowlerName")
+		.withColumnRenamed("total", "TotalRuns")
+        )
+ 
+---Step 4 : Convert Datareader to panda Dataframe
+
+---Step 5 : Do sum(TotalRuns) group by on Over,BatsManName,BowlerName
+			-- We will get two for each batsman for each over
+
+---Step 5 : Get a row for each over with the largest value in the above grouping result
