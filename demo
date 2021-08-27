@@ -1,0 +1,20 @@
+from pyspark.sql.functions import *
+
+DF = spark.read.json("hdfs://127.0.0.1:9000/ipl/ipl_json/1082592.json", multiLine = "true").drop("info","meta")
+DF.printSchema()
+
+DF1 = DF.select("innings")
+DF2 = DF1.select(explode("innings.overs"))
+DF3=DF2.select(explode("col.deliveries"))
+Table = DF3.select("col.batter","col.bowler",col("col.runs.batter").alias("runs"))
+Table.show()
+
+
+batsman=Table.select(explode("batter").alias("Batsman"))
+bowler=Table.select(explode("bowler").alias("Bowler"))
+runs= Table.select(explode("runs").alias("Runs"))
+batsman.show()
+bowler.show()
+runs.show()
+
+
