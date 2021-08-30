@@ -16,5 +16,5 @@ totalrunDF=runsDF.groupBy('batter','bowler').agg(func.sum('Runs').alias('Total_R
 totalrunDF.show()
 maxrunsDF=totalrunDF.groupBy('batter').agg(func.max('Total_Runs').alias('Highest_Run'))
 maxrunsDF.show()
-ResultDF=maxrunsDF.join(maxrunsDF, (maxrunsDF.Highest_Run==totalrunDF.Total_Runs) & (maxrunsDF.batter==totalrunDF.batter), how="leftsemi").withColumnRenamed("Total_Runs", "Highest_Run")
+ResultDF=maxrunsDF.join(maxrunsDF, (maxrunsDF.Highest_Run==totalrunDF.Total_Runs) & (maxrunsDF.batter==totalrunDF.batter), how="left").withColumnRenamed("Total_Runs", "Highest_Run")
 ResultDF.show()
